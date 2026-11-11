@@ -1,0 +1,6 @@
+{
+ "abstract": "adding the runtime gate lowered unsafe execution from 13.33% (95% CI 11.71 to 15.15) to 0.47% (0.23 to 0.96) and raised completion of legitimate requests from 82.45% to 86.83%, while benign requests completed at nearly the same rate and escalations to human reviewers fell by 33%. A replication seed and 100 further seeds preserved the result, every residual unsafe execution is traced to a rule gap or a reviewer error on an escalation-type case, and sensitivity analysis shows the reduction ranging from 79% to 99% depending mainly on rule coverage and reviewer reliability.",
+ "limitation": "28.13%, 13.33%, and 0.47% unsafe execution in the primary run",
+ "conclusion": "a deterministic gate that mediates every action stopped 193 of 200 unsafe actions from becoming side effects in the primary run, with little cost to benign requests and less reviewer workload than prompting alone. The remaining risk lay in rule gaps and in reviewer errors on genuinely ambiguous cases.",
+ "reduction": "96.5%"
+}
