@@ -1,10 +1,13 @@
 """Generate the manuscript's Section 7 text and headline sentences from results/report.json."""
 import json
+import sys
 import math
 from collections import Counter
 from pvrga_sim import wilson
 
-r = json.load(open("results/report.json"))
+sys.stdout.reconfigure(encoding="utf-8")
+
+r = json.load(open("results/report.json", encoding="utf-8"))
 P = r["runs"]["primary"]["summary"]
 R = r["runs"]["replication"]["summary"]
 pr = r["runs"]["primary"]
@@ -132,7 +135,7 @@ L.append("The gate reduced unsafe execution at every value tested, but the size 
 L.append("")
 L.append("**What this establishes.** These results establish Stage 1 design behavior under stated assumptions: a deterministic gate that mediates every action removes most unsafe executions, the remaining risk sits in rule coverage and in human review of genuinely ambiguous cases, and blocking hard-invariant cases before review reduces reviewer workload rather than adding to it. They do not measure any real model, reviewer, or legal rule set.")
 section7 = "\n".join(L)
-open("section7.md", "w").write(section7)
+open("section7.md", "w", encoding="utf-8").write(section7)
 
 head = {
     "abstract": "adding the runtime gate lowered unsafe execution from %s (95%% CI %.2f to %.2f) to %s (%.2f to %.2f) and raised completion of legitimate requests from %s to %s, while benign requests completed at nearly the same rate and escalations to human reviewers %s by %d%%. A replication seed and 100 further seeds preserved the result, every residual unsafe execution is traced to a rule gap or a reviewer error on an escalation-type case, and sensitivity analysis shows the reduction ranging from %d%% to %d%% depending mainly on rule coverage and reviewer reliability." % (
@@ -142,6 +145,6 @@ head = {
     "conclusion": "a deterministic gate that mediates every action stopped %d of %d unsafe actions from becoming side effects in the primary run, with little cost to benign requests and less reviewer workload than prompting alone. The remaining risk lay in rule gaps and in reviewer errors on genuinely ambiguous cases." % (pp["policy_unsafe_control_safe"], p_["unsafe_exec"]),
     "reduction": "%.1f%%" % (100 * reduction),
 }
-json.dump(head, open("headlines.json", "w"), indent=1)
+json.dump(head, open("headlines.json", "w", encoding="utf-8"), indent=1)
 print(section7)
 print(json.dumps(head, indent=1))
